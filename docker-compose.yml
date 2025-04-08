@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    container_name: weather-mcp
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    networks:
+      - agent-network
+
+networks:
+  agent-network:
+    driver: bridge

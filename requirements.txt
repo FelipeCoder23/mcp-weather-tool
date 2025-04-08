@@ -1,0 +1,6 @@
+streamlit
+openai
+pydantic_ai
+python-dotenv
+requests
+mcp[sse]
