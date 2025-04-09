@@ -9,7 +9,22 @@ services:
     env_file:
       - .env
     ports:
-      - "8000:8000"
+      - "8010:8000"
+    networks:
+      - agent-network
+
+  streamlit-client:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: weather-streamlit
+    env_file:
+      - .env
+    command: streamlit run src/streamlit_chat.py --server.port=8502 --server.address=0.0.0.0
+    depends_on:
+      - mcp-server
+    ports:
+      - "8510:8502"
     networks:
       - agent-network
 

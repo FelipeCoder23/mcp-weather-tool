@@ -2,9 +2,26 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Instalar dependencias del sistema (útil para futuras extensiones)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-COPY . .
+# Instalar dependencias de Python
+RUN pip install --no-cache-dir mcp[cli] fastmcp pydantic "requests>=2.32.3"
 
-CMD ["python", "src/weather_mcp_server.py"]
+# Crear carpeta para los servidores
+RUN mkdir -p /app/src
+
+# Copiar el código fuente del servidor
+COPY src/weather_mcp_server.py /app/src/weather_mcp_server.py
+COPY .env /app/
+
+# Exponer puerto
+EXPOSE 8000
+
+# Variable de entorno para asegurar que Python encuentre src/
+ENV PYTHONPATH=/app
+
+# Comando para ejecutar el servidor
+CMD ["python", "/app/src/weather_mcp_server.py"]
