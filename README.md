@@ -83,8 +83,4 @@ mcp-weather-chat/
 - **Servidor MCP**: 8010
 - **Cliente Streamlit**: 8510
 
-## Contribuir
-Las contribuciones son bienvenidas. Por favor, abre un issue primero para discutir los cambios que te gustaría hacer.
-
-## Licencia
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo LICENSE para más detalles. 
+## Gracias por ver mi contenido :D 
