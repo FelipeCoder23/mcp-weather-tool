@@ -2,21 +2,8 @@
 # IMPORTACIÓN DE LIBRERÍAS NECESARIAS
 # =================================================================
 import requests  # Para hacer peticiones HTTP a servicios web
-import logging  # Para registrar eventos y debuggear
-from dotenv import load_dotenv  # Carga variables desde archivo .env
 from pydantic import BaseModel, Field  # Para crear modelos de datos validados
 from mcp.server.fastmcp import FastMCP  # Framework principal para crear servidor MCP
-
-# =================================================================
-# CONFIGURACIÓN INICIAL Y LOGGING
-# =================================================================
-
-# Cargamos variables de entorno desde .env
-load_dotenv()
-
-# Configuramos el sistema de logging para debuggear
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 # =================================================================
 # CONFIGURACIÓN DEL SERVIDOR MCP
@@ -50,7 +37,7 @@ class WeatherResponse(BaseModel):
 def get_weather(ciudad: str) -> WeatherResponse:
     """Devuelve el clima actual en formato simple usando wttr.in"""
     # Registramos cada consulta para monitoreo
-    logger.info(f"Consultando clima de: {ciudad}")
+    print(f"✅ Consultando clima de: {ciudad}")
     
     try:
         # Hacemos la petición a wttr.in, un servicio gratuito de clima
@@ -62,8 +49,8 @@ def get_weather(ciudad: str) -> WeatherResponse:
         return WeatherResponse(ciudad=ciudad, clima=resultado)
     
     except Exception as e:
-        # Si algo falla, registramos el error y devolvemos mensaje amigable
-        logger.error(f"Error al obtener clima: {str(e)}")
+        # Si algo falla, mostramos el error y devolvemos mensaje amigable
+        print(f"❌ Error al obtener clima: {str(e)}")
         return WeatherResponse(ciudad=ciudad, clima="Error al obtener el clima")
 
 # =================================================================

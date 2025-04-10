@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     ports:
-      - "8010:8000"
+      - "8010:8000"  # Puerto externo:Puerto interno
     networks:
       - agent-network
 
@@ -24,10 +24,13 @@ services:
     depends_on:
       - mcp-server
     ports:
-      - "8510:8502"
+      - "8510:8502"  # Puerto externo:Puerto interno
     networks:
       - agent-network
 
 networks:
   agent-network:
     driver: bridge
+
+# NOTAS:
+#Tu Navegador → Puerto 8510 → Streamlit (8502) → Puerto 8010 → MCP Server (8000) → wttr.in
